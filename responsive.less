@@ -1,0 +1,106 @@
+@cssType : "fix";
+@baseWidth : 720px; // 设置标注图宽度
+@fixWidth : 1920px; // 标准页面宽度
+@fixHeight : 1080px; // 标准页面高度
+
+.width(@width, @pWidth : @fixWidth){
+  .px2percent(width, @width, @pWidth);
+}
+
+.left(@width, @pWidth : @fixWidth){
+  .px2percent(left, @width, @pWidth);
+}
+
+.right(@width, @pWidth : @fixWidth){
+  .px2percent(right, @width, @pWidth);
+}
+
+.height(@height){
+  .px2rem(height, @height);
+}
+
+.line-height(@height){
+  .px2rem(line-height, @height);
+}
+
+.text-indent(@height){
+  .px2rem(text-indent, @height);
+}
+
+.top(@height){
+  .px2rem(top, @height);
+}
+
+.bottom(@height){
+  .px2rem(bottom, @height);
+}
+
+.font-size(@height){
+  .px2rem(font-size, @height);
+}
+
+.padding(@top, @right, @bottom, @left, @pWidth : @fixWidth) when (isnumber(@right)) and (isnumber(@left)){
+  .px2rem(padding-top, @top);
+  .px2percent(padding-right, @right, @pWidth);
+  .px2rem(padding-bottom, @bottom);
+  .px2percent(padding-left, @left, @pWidth);
+}
+
+.padding(@top, @right, @bottom, @left, @pWidth : @fixWidth) when (isnumber(@right) = false) , (isnumber(@left) = false){
+.px2rem(padding-top, @top);
+padding-right : @right;
+.px2rem(padding-bottom, @bottom);
+padding-left : @left;
+}
+
+.margin(@top, @right, @bottom, @left, @pWidth : @fixWidth) when (isnumber(@right)) and (isnumber(@left)){
+  .px2rem(margin-top, @top);
+  .px2percent(margin-right, @right, @pWidth);
+  .px2rem(margin-bottom, @bottom);
+  .px2percent(margin-left, @left, @pWidth);
+}
+
+.margin(@top, @right, @bottom, @left, @pWidth : @fixWidth) when (isnumber(@right) = false) , (isnumber(@left) = false){
+.px2rem(margin-top, @top);
+margin-right : @right;
+.px2rem(margin-bottom, @bottom);
+margin-left : @left;
+}
+
+/**
+ * 基础方法，px转换rem
+ */
+.px2rem(@atr,@px,@base-width:0) when( @base-width > 0) and (@cssType = "fix"){
+    @{atr}: @px;
+}
+
+.px2rem(@atr,@px,@base-width:0) when( @base-width > 0) and (@cssType = "responsive"){
+    @{atr}: unit(@px*10 / @base-width , rem);
+}
+
+.px2rem(@atr,@px,@base-width:0) when( @base-width = 0) and (@cssType = "fix"){
+    @{atr}: @px;
+}
+
+.px2rem(@atr,@px,@base-width:0) when( @base-width = 0) and (@cssType = "responsive"){
+    @{atr}: unit(@px*10 / @baseWidth , rem);
+}
+
+/**
+ * 基础方法，px转换百分比
+ */
+.px2percent(@atr,@px,@base-width:0) when( @base-width > 0) and (@cssType = "fix"){
+    @{atr}: @px;
+}
+
+.px2percent(@atr,@px,@base-width:0) when( @base-width > 0) and (@cssType = "responsive"){
+    @{atr}: percentage(@px / @base-width);
+}
+
+.px2percent(@atr,@px,@base-width:0) when( @base-width = 0) and (@cssType = "fix"){
+    @{atr}: @px;
+}
+
+.px2percent(@atr,@px,@base-width:0) when( @base-width = 0) and (@cssType = "responsive"){
+    @{atr}: percentage(@px / @baseWidth);
+}
